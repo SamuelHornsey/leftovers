@@ -1,6 +1,6 @@
-# Preact Starter 🏆🏆🏆
+# Leftovers
 
-A simple preact starter. Because using the cli is awful.
+Find recipe's from your leftovers 🥘
 
 ## Getting Started
 
