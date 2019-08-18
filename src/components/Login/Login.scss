@@ -1,0 +1,37 @@
+.Login {
+  width: 85%;
+  margin: auto;
+
+  &__title {
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: 0.05em;
+    color: #7a7a7a;
+    text-align: center;
+    margin-top: 143px;
+    margin-bottom: 90px;
+  }
+
+  &__btn {
+    background: #aad7ff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    border: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 23px 32px;
+
+    &-text {
+      font-family: Lato;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+    }
+
+    &-logo {
+      margin-left: auto;
+    }
+  }
+}

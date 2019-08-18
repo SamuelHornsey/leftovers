@@ -1,0 +1,34 @@
+{
+  "name": "leftovers",
+  "version": "1.0.0",
+  "description": "Leftovers",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "start": "webpack-dev-server --mode=development"
+  },
+  "author": "Samuel Hornsey (SH)",
+  "license": "MIT",
+  "dependencies": {
+    "preact": "^8.3.1",
+    "preact-async-route": "^2.2.1",
+    "preact-router": "^2.6.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "css-loader": "^1.0.1",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.2.1"
+  }
+}

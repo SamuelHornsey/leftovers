@@ -1,0 +1,35 @@
+.Tile {
+  background: #ffffff;
+  box-shadow: -2px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  padding: 36px 28px;
+  margin: 10px 0px;
+  color: #7A7A7A;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__col {
+    &:nth-child(1) {
+      margin-right: auto;
+    }
+  }
+
+  &__btn {
+    background: #ff7676;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      transform: rotate(45deg);
+    }
+  }
+}
