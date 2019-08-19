@@ -9,6 +9,10 @@ export default class List extends AuthBase {
     super(props);
   }
 
+  componentDidMount () {
+    this.checkAuth();
+  }
+
   render() {
     return (
       <div>

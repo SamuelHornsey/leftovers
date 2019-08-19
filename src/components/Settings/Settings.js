@@ -9,6 +9,10 @@ export default class Settings extends AuthBase {
     super(props);
   }
 
+  componentDidMount() {
+    this.checkAuth();
+  }
+
   render() {
     return (
       <div>

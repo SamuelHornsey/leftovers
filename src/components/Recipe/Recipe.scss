@@ -1,0 +1,76 @@
+.Recipe {
+  $self: &;
+  background: #ffffff;
+  box-shadow: -2px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  padding: 36px 28px;
+  margin: 23px 0px;
+  color: #7a7a7a;
+
+  &--open {
+    #{ $self }__container {
+      display: flex;
+      align-items: center;
+      flex-direction: column-reverse;
+    }
+
+    #{ $self }__title {
+      margin-top: 30px;
+    }
+
+    #{ $self }__btn {
+      width: auto;
+      margin: 0;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    #{ $self }__col {
+      &--hidden {
+        display: block;
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__col {
+    &:nth-child(3) {
+      margin-left: auto;
+    }
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__link {
+    display: block;
+    margin-top: 15px;
+  }
+
+  &__title {
+    text-align: left;
+  }
+
+  &__btn {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 15px;
+    transition: border-radius 0.3s ease;
+
+    img {
+      width: 140%;
+    }
+  }
+}

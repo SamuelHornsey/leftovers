@@ -18,6 +18,8 @@ export default class Home extends AuthBase {
   }
 
   componentDidMount () {
+    this.checkAuth();
+    
     const params = new URLSearchParams(window.location.search);
     const _ingredients = params.get('ingredients');
 

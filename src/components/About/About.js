@@ -9,6 +9,10 @@ export default class About extends AuthBase {
     super(props);
   }
 
+  componentDidMount () {
+    this.checkAuth();
+  }
+
   render() {
     return (
       <div>

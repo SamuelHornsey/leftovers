@@ -7,7 +7,7 @@ export default class AuthBase extends Component {
     super(props);
   }
 
-  componentDidMount () {
+  checkAuth () {
     if (!isAuthenticated()) {
       return route('/login', true);
     }

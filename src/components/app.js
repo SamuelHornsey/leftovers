@@ -1,9 +1,8 @@
+// Preact
 import { h, Component } from "preact";
 import { Router } from "preact-router";
-import { route } from "preact-router";
 
-import "./app.scss";
-
+// Components
 import Home from "./Home/Home";
 import Search from "./Search/Search";
 import Login from "./Login/Login";
@@ -11,14 +10,19 @@ import Callback from "./Callback/Callback";
 import Settings from "./Settings/Settings";
 import List from "./List/List";
 import About from "./About/About";
+import Nav from "./Nav/Nav";
 
+// Graphics
 import hamburger from '../assets/hamburger.png';
-import home from '../assets/home.png';
-import settings from '../assets/settings.png';
-import question from '../assets/question.png';
-import list from '../assets/list.png';
+
+// Styles
+import "./app.scss";
 
 export default class App extends Component {
+  /**
+   * Constructor
+   * @param {*} props 
+   */
   constructor(props) {
     super(props);
 
@@ -27,43 +31,26 @@ export default class App extends Component {
     }
   }
 
+  /**
+   * Toggle Nav
+   * @param {*} e 
+   */
   _toggle(e) {
     e.preventDefault();
     this.setState({ open: !this.state.open });
   }
 
-  _goTo(e) {
-    e.preventDefault();
-    route(e.target.href, true);
+  /**
+   * When user changes view
+   */
+  _goTo() {
     this.setState({ open: false });
   }
 
   render() {
     return (
       <div class="Container">
-        <nav class="Nav">
-          <ul class="Nav__container">
-            <li class="Nav__element Nav__element--heading">
-              <h1 class="Nav__heading">Leftovers</h1>
-            </li>
-            <li class="Nav__element">
-              <a onClick={e => this._goTo(e)} class="Nav__link" href="/">Home</a>
-              <img src={home} alt="Home" />
-            </li>
-            <li class="Nav__element">
-              <a onClick={e => this._goTo(e)} class="Nav__link" href="/list">List</a>
-              <img src={list} alt="List" />
-            </li>
-            <li class="Nav__element">
-              <a onClick={e => this._goTo(e)} class="Nav__link" href="/settings">Settings</a>
-              <img src={settings} alt="Settings" />
-            </li>
-            <li class="Nav__element">
-              <a onClick={e => this._goTo(e)} class="Nav__link" href="/about">About</a>
-              <img src={question} alt="Questions" />
-            </li>
-          </ul>
-        </nav>
+        <Nav onChange={() => this._goTo()} />
 
         <div class={this.state.open ? "View View--open" : "View"}>
           <a onClick={e => this._toggle(e)} href="#" class="Hamburger">

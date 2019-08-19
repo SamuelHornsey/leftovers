@@ -14,7 +14,13 @@ export default class Header extends Component {
     }
   }
 
-  _add() {
+  _add(e) {
+    if (e.target === this.input) {
+      if (e.key != 'Enter') {
+        return;
+      }
+    }
+
     if (this.input.value === '') {
       return;
     }
@@ -23,12 +29,12 @@ export default class Header extends Component {
     this.input.value = '';
   }
 
-  _toggleDisabled (e) {
+  _toggleDisabled(e) {
     e.preventDefault();
     this.setState({ exclude: !this.state.exclude });
   }
 
-  _search (e) {
+  _search(e) {
     e.preventDefault();
     this.props.search();
   }
@@ -38,7 +44,7 @@ export default class Header extends Component {
       <header class="Header">
         <div class="Header__ingredients">
           <div class="Header__col">
-            <input ref={input => this.input = input} class="Header__input" name="ingredient" type="text" placeholder="Ingredients..." />
+            <input onKeyDown={e => this._add(e)} ref={input => this.input = input} class="Header__input" name="ingredient" type="text" placeholder="Ingredients..." />
           </div>
           <div class="Header__col">
             <a href="#" onClick={e => this._add(e)} class="Header__btn">
@@ -48,17 +54,17 @@ export default class Header extends Component {
         </div>
 
         <div class="Header__controls">
-          <div onClick={e => this._toggleDisabled(e)} class={this.state.exclude ? "Header__controls-btn Header__controls-btn--pink" : "Header__controls-btn Header__controls-btn--pink Header__controls-btn--disabled"}>
+          <button onClick={e => this._toggleDisabled(e)} class={this.state.exclude ? "Header__controls-btn Header__controls-btn--pink" : "Header__controls-btn Header__controls-btn--pink Header__controls-btn--disabled"}>
             Exclude Pantry Essentials
-          </div>
-          <div onClick={e => this._search(e)} class="Header__controls-btn Header__controls-btn--green">
+          </button>
+          <button onClick={e => this._search(e)} class="Header__controls-btn Header__controls-btn--green">
             <div>
               Go!
             </div>
-            <a class="Header__controls-triangle">
+            <div class="Header__controls-triangle">
               <img src={triangle} alt="Go" />
-            </a>
-          </div>
+            </div>
+          </button>
         </div>
       </header>
     );

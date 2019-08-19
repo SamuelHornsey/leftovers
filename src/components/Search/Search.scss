@@ -1,3 +1,36 @@
 .Search {
-  
+  width: 85%;
+  margin: auto;
+
+  &__title {
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #7a7a7a;
+    margin-top: 70px;
+  }
+
+  &__none {
+    text-align: center;
+    color: #7a7a7a;
+  }
+
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  &__loading {
+    text-align: center;
+
+    img {
+      width: 50px;
+      animation: rotating 2s linear infinite;
+    }
+  }
 }
