@@ -34,4 +34,22 @@
       margin-left: auto;
     }
   }
+
+  &__name {
+    font-size: 10px;
+    line-height: 12px;
+    /* identical to box height */
+
+    letter-spacing: 0.05em;
+
+    color: #cccccc;
+
+    margin-top: 65px;
+    text-align: center;
+
+    a {
+      color: #cccccc;
+      border-bottom: solid 2px #ccc;
+    }
+  }
 }

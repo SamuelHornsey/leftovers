@@ -47,13 +47,16 @@ export default class App extends Component {
     this.setState({ open: false });
   }
 
+  /**
+   * Render
+   */
   render() {
     return (
       <div class="Container">
         <Nav onChange={() => this._goTo()} />
 
         <div class={this.state.open ? "View View--open" : "View"}>
-          <a onClick={e => this._toggle(e)} href="#" class="Hamburger">
+          <a onClick={e => this._toggle(e)} href="#" class={window.location.pathname != '/login' ? "Hamburger" : "Hamburger Hamburger--hidden"}>
             <img src={hamburger} alt="Menu" />
           </a>
           <Router>

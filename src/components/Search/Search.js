@@ -30,17 +30,26 @@ export default class Search extends AuthBase {
     const ingredients = _ingredients.split(',')
 
     getRecipesByIngredients(ingredients)
-      .then(recipes => this.setState({ recipes, loading: false }));
+      .then(recipes => this.setState({ recipes, loading: false }))
+      .catch(() => this.setState({ error: true, loading: false }));
   }
 
   _renderRecipe() {
-    const { recipes, loading } = this.state;
+    const { recipes, loading, error } = this.state;
     const tiles = [];
 
     if (loading) {
       return (
         <div class="Search__loading">
           <img src={timer} alt="Loading" />
+        </div>
+      )
+    }
+
+    if (error) {
+      return (
+        <div class="Search__none">
+          <h4>Oops. Something Went Wrong...</h4>
         </div>
       )
     }
@@ -55,7 +64,7 @@ export default class Search extends AuthBase {
 
     recipes.map((recipe, i) => {
       tiles.push(
-        <Recipe id={recipe.id} title={recipe.title} image={recipe.image} key={i} />
+        <Recipe id={recipe.id} missedIngredientCount={recipe.missedIngredientCount} title={recipe.title} image={recipe.image} key={i} />
       )
     });
 

@@ -33,9 +33,17 @@ export default class Recipe extends Component {
         <div class="Recipe__container">
           <div class="Recipe__col Recipe__col--hidden">
             <a class="Recipe__link" href="#" onClick={e => this._open(e)}>
-              View >>>
+              View
             </a>
           </div>
+
+          <div class="Recipe__col Recipe__col--hidden Recipe__col--missing">
+            <span class="Recipe__missing">
+              { this.props.missedIngredientCount }
+            </span>
+            missing ingredient(s)
+          </div>
+
           <div class="Recipe__col">
             <div class="Recipe__title">
               {

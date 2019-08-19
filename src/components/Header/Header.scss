@@ -63,6 +63,7 @@
       align-items: center;
       border: none;
       text-align: left;
+      transition: opacity .1s ease;
 
       &:nth-child(1) {
         margin-right: 10px;
@@ -73,7 +74,7 @@
       }
 
       &--disabled {
-        opacity: .5;
+        opacity: .3;
       }
 
       &--pink {

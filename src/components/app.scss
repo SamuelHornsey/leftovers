@@ -26,6 +26,10 @@ body {
   top: 0px;
   display: block;
   margin: 26px 24px;
+
+  &--hidden {
+    display: none;
+  }
 }
 
 .Nav {
