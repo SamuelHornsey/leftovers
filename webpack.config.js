@@ -1,8 +1,9 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 const path = require("path");
 
-const devMode = process.env.NODE_ENV === 'production'
+const devMode = process.env.NODE_ENV === "production";
 
 module.exports = {
   // entry file - starting point for the app
@@ -18,16 +19,16 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?/i,
-        loader: "babel-loader",
+        loader: "babel-loader"
       },
 
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
-            loader: 'file-loader',
-          },
-        ],
+            loader: "file-loader"
+          }
+        ]
       },
 
       {
@@ -50,14 +51,16 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      favicon: 'src/assets/favicon.png'
+      template: "src/index.html",
+      favicon: "src/assets/favicon.png"
     }),
 
     new MiniCssExtractPlugin({
       filename: devMode ? "main.css" : "main.[hash].css",
       chunkFilename: devMode ? "main.[id].css" : "main.[id].[hash].css"
     }),
+
+    new WorkboxPlugin.GenerateSW()
   ],
 
   // enable Source Maps
