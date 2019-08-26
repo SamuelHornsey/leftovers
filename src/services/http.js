@@ -11,10 +11,11 @@ export function getRecipesByIngredients(ingredients) {
   return new Promise((resolve, reject) => {
     fetch(
       `https://${API_URL}/recipes/findByIngredients?ingredients=${search}&number=10&apiKey=${API_KEY}`
-    ).then(res => {
+    ).then(async res => {
       if (!res.ok) {
         return reject();
       }
+
       return resolve(res.json());
     });
   });

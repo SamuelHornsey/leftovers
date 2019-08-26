@@ -3,12 +3,12 @@ import { h } from "preact";
 import AuthBase from "../AuthBase/AuthBase";
 import Recipe from "../Recipe/Recipe";
 
-import { getList } from "../../services/list";
+import { getFavs } from "../../services/favs";
 
-import "./List.scss";
+import "./Favs.scss";
 import timer from "../../assets/sand-clock.png";
 
-export default class List extends AuthBase {
+export default class Favs extends AuthBase {
   constructor(props) {
     super(props);
 
@@ -21,7 +21,7 @@ export default class List extends AuthBase {
   async componentDidMount() {
     this.checkAuth();
 
-    const recipes = await getList();
+    const recipes = await getFavs();
     const loading = false;
 
     this.setState({
@@ -36,7 +36,7 @@ export default class List extends AuthBase {
 
     if (loading) {
       return (
-        <div class="Search__loading">
+        <div class="Favs__loading">
           <img src={timer} alt="Loading" />
         </div>
       );
@@ -44,7 +44,7 @@ export default class List extends AuthBase {
 
     if (error) {
       return (
-        <div class="Search__none">
+        <div class="Favs__none">
           <h4>Oops. Something Went Wrong...</h4>
         </div>
       );
@@ -52,22 +52,14 @@ export default class List extends AuthBase {
 
     if (recipes.length === 0) {
       return (
-        <div class="Search__none">
+        <div class="Favs__none">
           <h4>No Results...</h4>
         </div>
       );
     }
 
     recipes.map((recipe, i) => {
-      tiles.push(
-        <Recipe
-          id={recipe.id}
-          missedIngredientCount={recipe.missedIngredientCount}
-          title={recipe.title}
-          image={recipe.image}
-          key={i}
-        />
-      );
+      tiles.push(<Recipe {...recipe} />);
     });
 
     return tiles;
@@ -75,8 +67,8 @@ export default class List extends AuthBase {
 
   render() {
     return (
-      <div class="Search">
-        <h1 class="Search__title">List</h1>
+      <div class="Favs">
+        <h1 class="Favs__title">Favourites</h1>
 
         {this._renderRecipe()}
       </div>

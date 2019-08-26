@@ -11,9 +11,10 @@ import Settings from "./Settings/Settings";
 import List from "./List/List";
 import About from "./About/About";
 import Nav from "./Nav/Nav";
+import Favs from "./Favs/Favs";
 
 // Graphics
-import hamburger from '../assets/hamburger.png';
+import hamburger from "../assets/hamburger.png";
 
 // Styles
 import "./app.scss";
@@ -21,19 +22,19 @@ import "./app.scss";
 export default class App extends Component {
   /**
    * Constructor
-   * @param {*} props 
+   * @param {*} props
    */
   constructor(props) {
     super(props);
 
     this.state = {
       open: false
-    }
+    };
   }
 
   /**
    * Toggle Nav
-   * @param {*} e 
+   * @param {*} e
    */
   _toggle(e) {
     e.preventDefault();
@@ -56,7 +57,15 @@ export default class App extends Component {
         <Nav onChange={() => this._goTo()} />
 
         <div class={this.state.open ? "View View--open" : "View"}>
-          <a onClick={e => this._toggle(e)} href="#" class={window.location.pathname != '/login' ? "Hamburger" : "Hamburger Hamburger--hidden"}>
+          <a
+            onClick={e => this._toggle(e)}
+            href="#"
+            class={
+              window.location.pathname != "/login"
+                ? "Hamburger"
+                : "Hamburger Hamburger--hidden"
+            }
+          >
             <img src={hamburger} alt="Menu" />
           </a>
           <Router>
@@ -67,9 +76,9 @@ export default class App extends Component {
             <Settings path="/settings" />
             <About path="/about" />
             <List path="/list" />
+            <Favs path="/favs" />
           </Router>
         </div>
-
       </div>
     );
   }

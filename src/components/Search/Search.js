@@ -1,13 +1,13 @@
 import { h } from "preact";
 
-import { getRecipesByIngredients } from '../../services/http';
+import { getRecipesByIngredients } from "../../services/http";
 
-import AuthBase from '../AuthBase/AuthBase';
-import Recipe from '../Recipe/Recipe';
+import AuthBase from "../AuthBase/AuthBase";
+import Recipe from "../Recipe/Recipe";
 
-import timer from '../../assets/sand-clock.png';
+import timer from "../../assets/sand-clock.png";
 
-import './Search.scss';
+import "./Search.scss";
 
 export default class Search extends AuthBase {
   constructor(props) {
@@ -16,18 +16,18 @@ export default class Search extends AuthBase {
     this.state = {
       recipes: [],
       loading: true
-    }
+    };
   }
 
   componentDidMount() {
     this.checkAuth();
 
     const params = new URLSearchParams(window.location.search);
-    const _ingredients = params.get('ingredients');
+    const _ingredients = params.get("ingredients");
 
     if (!_ingredients) return;
 
-    const ingredients = _ingredients.split(',')
+    const ingredients = _ingredients.split(",");
 
     getRecipesByIngredients(ingredients)
       .then(recipes => this.setState({ recipes, loading: false }))
@@ -43,7 +43,7 @@ export default class Search extends AuthBase {
         <div class="Search__loading">
           <img src={timer} alt="Loading" />
         </div>
-      )
+      );
     }
 
     if (error) {
@@ -51,7 +51,7 @@ export default class Search extends AuthBase {
         <div class="Search__none">
           <h4>Oops. Something Went Wrong...</h4>
         </div>
-      )
+      );
     }
 
     if (recipes.length === 0) {
@@ -59,13 +59,11 @@ export default class Search extends AuthBase {
         <div class="Search__none">
           <h4>No Results...</h4>
         </div>
-      )
+      );
     }
 
     recipes.map((recipe, i) => {
-      tiles.push(
-        <Recipe id={recipe.id} missedIngredientCount={recipe.missedIngredientCount} title={recipe.title} image={recipe.image} key={i} />
-      )
+      tiles.push(<Recipe {...recipe} />);
     });
 
     return tiles;
@@ -76,10 +74,8 @@ export default class Search extends AuthBase {
       <div class="Search">
         <h1 class="Search__title">Recipe's</h1>
 
-        {
-          this._renderRecipe()
-        }
+        {this._renderRecipe()}
       </div>
-    )
+    );
   }
 }

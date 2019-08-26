@@ -8,6 +8,7 @@ import settings from "../../assets/settings.png";
 import question from "../../assets/question.png";
 import list from "../../assets/list.png";
 import logoutIcon from "../../assets/logout.png";
+import favourite from "../../assets/favorite.png";
 
 import "./Nav.scss";
 
@@ -39,6 +40,12 @@ const Nav = props => {
             List
           </Link>
           <img src={list} alt="List" />
+        </li>
+        <li class="Nav__element">
+          <Link onClick={e => onChange(e)} class="Nav__link" href="/favs">
+            Favs
+          </Link>
+          <img src={favourite} alt="Favourite" />
         </li>
         <li class="Nav__element">
           <Link onClick={e => onChange(e)} class="Nav__link" href="/settings">

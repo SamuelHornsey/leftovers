@@ -60,7 +60,7 @@ module.exports = {
       chunkFilename: devMode ? "main.[id].css" : "main.[id].[hash].css"
     }),
 
-    new WorkboxPlugin.GenerateSW()
+    // new WorkboxPlugin.GenerateSW()
   ],
 
   // enable Source Maps
