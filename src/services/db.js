@@ -1,7 +1,7 @@
 import { openDB } from "idb";
 
 export async function getDB() {
-  const db = await openDB("leftovers", "1", {
+  const db = await openDB("leftovers", "2", {
     upgrade(db) {
       const recipes = db.createObjectStore("recipes");
       const favs = db.createObjectStore("favs", {

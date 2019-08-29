@@ -3,7 +3,7 @@ import { h } from "preact";
 import AuthBase from "../AuthBase/AuthBase";
 import Recipe from "../Recipe/Recipe";
 
-import { getFavs } from "../../services/favs";
+import { getFavs, deleteFav } from "../../services/favs";
 
 import "./Favs.scss";
 import timer from "../../assets/sand-clock.png";
@@ -18,9 +18,12 @@ export default class Favs extends AuthBase {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.checkAuth();
+    this._loadRecipes();
+  }
 
+  async _loadRecipes() {
     const recipes = await getFavs();
     const loading = false;
 
@@ -28,6 +31,12 @@ export default class Favs extends AuthBase {
       recipes,
       loading
     });
+  }
+
+  async _remove(recipe) {
+    const { id } = recipe;
+    await deleteFav(id);
+    this._loadRecipes();
   }
 
   _renderRecipe() {
@@ -59,7 +68,14 @@ export default class Favs extends AuthBase {
     }
 
     recipes.map((recipe, i) => {
-      tiles.push(<Recipe {...recipe} />);
+      tiles.push(
+        <Recipe
+          index={i}
+          remove={index => this._remove(index)}
+          variant={"remove"}
+          {...recipe}
+        />
+      );
     });
 
     return tiles;

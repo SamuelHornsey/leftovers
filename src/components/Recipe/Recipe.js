@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 
 import { getRecipeById } from "../../services/http";
-import { addFavs } from '../../services/favs';
+import { addFavs } from "../../services/favs";
 
 import "./Recipe.scss";
 
@@ -47,6 +47,11 @@ export default class Recipe extends Component {
     addFavs(this.props);
   }
 
+  _remove (e) {
+    e.preventDefault(e);
+    this.props.remove(this.props);
+  }
+
   render() {
     return (
       <div
@@ -71,14 +76,26 @@ export default class Recipe extends Component {
             >
               Add to List
             </a>
-            <a
-              ref={link => (this.favs = link)}
-              class="Recipe__link Recipe__link--favs"
-              href="#"
-              onClick={e => this._favs(e)}
-            >
-              Add to Favs
-            </a>
+
+            {this.props.variant === "remove" ? (
+              <a
+                ref={link => (this.favs = link)}
+                class="Recipe__link Recipe__link--remove"
+                href="#"
+                onClick={e => this._remove(e)}
+              >
+                Remove
+              </a>
+            ) : (
+              <a
+                ref={link => (this.favs = link)}
+                class="Recipe__link Recipe__link--favs"
+                href="#"
+                onClick={e => this._favs(e)}
+              >
+                Add to Favs
+              </a>
+            )}
           </div>
 
           <div class="Recipe__col Recipe__col--hidden Recipe__col--missing">

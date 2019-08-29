@@ -8,8 +8,10 @@ export async function addFavs(recipe) {
 
 export async function getFavs () {
   const db = await getDB();
+  return await db.getAllFromIndex('favs', 'id');
+}
 
-  const list = await db.getAllFromIndex('favs', 'id');
-
-  return list;
+export async function deleteFav (id) {
+  const db = await getDB();
+  await db.delete('favs', id);
 }
