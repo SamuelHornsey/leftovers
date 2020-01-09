@@ -19,7 +19,6 @@ const Nav = props => {
 
   const _logout = e => {
     e.preventDefault();
-    props.onChange(e.target.href);
     logout();
   }
 

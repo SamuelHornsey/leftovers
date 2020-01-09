@@ -1,11 +1,12 @@
 import { h } from "preact";
 
 import AuthBase from "../AuthBase/AuthBase";
-import Recipe from "../Recipe/Recipe";
+import Item from './Item';
 
 import { getList } from "../../services/list";
 
 import "./List.scss";
+
 import timer from "../../assets/sand-clock.png";
 
 export default class List extends AuthBase {
@@ -78,7 +79,9 @@ export default class List extends AuthBase {
       <div class="Search">
         <h1 class="Search__title">List</h1>
 
-        {this._renderRecipe()}
+        {/* <Item title="Apples" status={true} /> */}
+
+        {/* {this._renderRecipe()} */}
       </div>
     );
   }

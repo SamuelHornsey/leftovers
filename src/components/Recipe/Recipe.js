@@ -28,18 +28,28 @@ export default class Recipe extends Component {
   async _open(e) {
     e.preventDefault();
 
-    if (!this.state.sourceUrl) {
+    if (!this.state.recipe) {
       await getRecipeById(this.props.id).then(recipe => {
-        const { sourceUrl } = recipe;
-        this.setState({ sourceUrl });
+        this.setState({ recipe });
       });
     }
 
-    window.open(this.state.sourceUrl, "_blank");
+    window.open(this.state.recipe.sourceUrl, "_blank");
   }
 
-  _list(e) {
+  async _list(e) {
     e.preventDefault();
+    if (!this.state.recipe) {
+      await getRecipeById(this.props.id).then(recipe => {
+        this.setState({ recipe });
+      });
+    }
+
+    const { extendedIngredients } = this.state.recipe;
+
+    extendedIngredients.forEach(ingredient => {
+
+    });
   }
 
   _favs(e) {
