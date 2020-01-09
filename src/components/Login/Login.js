@@ -4,7 +4,7 @@ import { login as doLogin, isAuthenticated } from "../../services/auth";
 
 import "./Login.scss";
 
-import google from "../../assets/google.png";
+import logo from "../../assets/login.png";
 
 const Login = () => {
   if (isAuthenticated()) {
@@ -21,9 +21,9 @@ const Login = () => {
       <h1 class="Login__title">Leftovers</h1>
 
       <button onClick={e => login(e)} class="Login__btn">
-        <div class="Login__btn-text">Login with Google</div>
+        <div class="Login__btn-text">Login to Leftovers</div>
         <div class="Login__btn-logo">
-          <img src={google} alt="Google" />
+          <img src={logo} alt="Logo" />
         </div>
       </button>
 
