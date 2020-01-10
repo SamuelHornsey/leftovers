@@ -1,12 +1,12 @@
-import { h } from "preact";
+import { h } from 'preact';
 
-import AuthBase from "../AuthBase/AuthBase";
-import Recipe from "../Recipe/Recipe";
+import AuthBase from '../AuthBase/AuthBase';
+import Recipe from '../Recipe/Recipe';
 
-import { getFavs, deleteFav } from "../../services/favs";
+import { getFavs, deleteFav } from '../../services/favs';
 
-import "./Favs.scss";
-import timer from "../../assets/sand-clock.png";
+import './Favs.scss';
+import timer from '../../assets/sand-clock.png';
 
 export default class Favs extends AuthBase {
   constructor(props) {
@@ -72,7 +72,7 @@ export default class Favs extends AuthBase {
         <Recipe
           index={i}
           remove={index => this._remove(index)}
-          variant={"remove"}
+          variant={'remove'}
           {...recipe}
         />
       );

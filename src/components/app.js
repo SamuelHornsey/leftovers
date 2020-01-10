@@ -1,25 +1,26 @@
 // Preact
-import { h, Component } from "preact";
-import { Router } from "preact-router";
+import { h, Component } from 'preact';
+import { Router } from 'preact-router';
 
 // Components
-import Home from "./Home/Home";
-import Search from "./Search/Search";
-import Login from "./Login/Login";
-import Callback from "./Callback/Callback";
-import Settings from "./Settings/Settings";
-import List from "./List/List";
-import About from "./About/About";
-import Nav from "./Nav/Nav";
-import Favs from "./Favs/Favs";
+import Home from './Home/Home';
+import Search from './Search/Search';
+import Login from './Login/Login';
+import Callback from './Callback/Callback';
+import Settings from './Settings/Settings';
+import List from './List/List';
+import About from './About/About';
+import Nav from './Nav/Nav';
+import Favs from './Favs/Favs';
 
 // Graphics
-import hamburger from "../assets/hamburger.png";
+import hamburger from '../assets/hamburger.png';
 
 // Styles
-import "./app.scss";
+import './app.scss';
 
 export default class App extends Component {
+
   /**
    * Constructor
    * @param {*} props
@@ -56,14 +57,14 @@ export default class App extends Component {
       <div class="Container">
         <Nav onChange={() => this._goTo()} />
 
-        <div class={this.state.open ? "View View--open" : "View"}>
+        <div class={this.state.open ? 'View View--open' : 'View'}>
           <a
             onClick={e => this._toggle(e)}
             href="#"
             class={
-              window.location.pathname != "/login"
-                ? "Hamburger"
-                : "Hamburger Hamburger--hidden"
+              window.location.pathname != '/login'
+                ? 'Hamburger'
+                : 'Hamburger Hamburger--hidden'
             }
           >
             <img src={hamburger} alt="Menu" />

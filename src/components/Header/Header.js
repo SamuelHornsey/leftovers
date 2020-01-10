@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { h, Component } from 'preact';
 
 import './Header.scss';
 
@@ -11,7 +11,7 @@ export default class Header extends Component {
 
     this.state = {
       exclude: false
-    }
+    };
   }
 
   _add(e) {
@@ -54,7 +54,7 @@ export default class Header extends Component {
         </div>
 
         <div class="Header__controls">
-          <button onClick={e => this._toggleDisabled(e)} class={this.state.exclude ? "Header__controls-btn Header__controls-btn--pink" : "Header__controls-btn Header__controls-btn--pink Header__controls-btn--disabled"}>
+          <button onClick={e => this._toggleDisabled(e)} class={this.state.exclude ? 'Header__controls-btn Header__controls-btn--pink' : 'Header__controls-btn Header__controls-btn--pink Header__controls-btn--disabled'}>
             Exclude Pantry Essentials
           </button>
           <button onClick={e => this._search(e)} class="Header__controls-btn Header__controls-btn--green">

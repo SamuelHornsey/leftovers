@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h } from 'preact';
 import { route } from 'preact-router';
 
 import { isAuthenticated } from '../../services/auth';
@@ -12,9 +12,9 @@ const Callback = () => {
 
   if (isAuthenticated()) {
     return route('/', true);
-  } else {
-    return route('/login', true);
   }
-}
+  return route('/login', true);
+  
+};
 
 export default Callback;

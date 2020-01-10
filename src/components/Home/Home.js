@@ -14,7 +14,7 @@ export default class Home extends AuthBase {
 
     this.state = {
       ingredients: []
-    }
+    };
   }
 
   componentDidMount () {
@@ -25,7 +25,7 @@ export default class Home extends AuthBase {
 
     if (!_ingredients) return;
 
-    const ingredients = _ingredients.split(',')
+    const ingredients = _ingredients.split(',');
 
     this.setState({ ingredients });
   }
@@ -34,7 +34,7 @@ export default class Home extends AuthBase {
     const { ingredients } = this.state;
 
     if (ingredients.length === 0) {
-      route(`/`, true);
+      route('/', true);
       return;
     }
 

@@ -1,16 +1,16 @@
-import { h } from "preact";
-import { Link } from "preact-router";
+import { h } from 'preact';
+import { Link } from 'preact-router';
 
 import { logout } from '../../services/auth';
 
-import home from "../../assets/home.png";
-import settings from "../../assets/settings.png";
-import question from "../../assets/question.png";
-import list from "../../assets/list.png";
-import logoutIcon from "../../assets/logout.png";
-import favourite from "../../assets/favorite.png";
+import home from '../../assets/home.png';
+import settings from '../../assets/settings.png';
+import question from '../../assets/question.png';
+import list from '../../assets/list.png';
+import logoutIcon from '../../assets/logout.png';
+import favourite from '../../assets/favorite.png';
 
-import "./Nav.scss";
+import './Nav.scss';
 
 const Nav = props => {
   const onChange = e => {
@@ -20,7 +20,7 @@ const Nav = props => {
   const _logout = e => {
     e.preventDefault();
     logout();
-  }
+  };
 
   return (
     <nav class="Nav">

@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h } from 'preact';
 
 import AuthBase from '../AuthBase/AuthBase';
 
@@ -18,6 +18,6 @@ export default class Settings extends AuthBase {
       <div>
         Settings
       </div>
-    )
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h } from 'preact';
 
 import './Tile.scss';
 
@@ -8,7 +8,7 @@ const Tile = (props) => {
   const remove = (e) => {
     e.preventDefault();
     props.remove(props.tile);
-  }
+  };
 
   return (
     <div class="Tile">
@@ -26,7 +26,7 @@ const Tile = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Tile;
