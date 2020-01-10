@@ -3,10 +3,10 @@ import { route } from 'preact-router';
 import { isAuthenticated } from '../../services/auth';
 
 export default class AuthBase extends Component {
-  constructor(props) {
-    super(props);
-  }
 
+  /**
+   * Check that user is authenticated
+   */
   checkAuth () {
     if (!isAuthenticated()) {
       return route('/login', true);

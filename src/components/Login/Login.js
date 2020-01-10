@@ -29,7 +29,7 @@ const Login = () => {
 
       <div class="Login__name">
         Made by{' '}
-        <a href="https://github.com/SamuelHornsey" target="_blank">
+        <a href="https://github.com/SamuelHornsey" target="_blank" rel="noopener noreferrer">
           Samuel Hornsey
         </a>
       </div>

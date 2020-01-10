@@ -19,16 +19,17 @@ export default class List extends AuthBase {
     };
   }
 
-  async componentDidMount() {
+  componentWillMount() {
     this.checkAuth();
 
-    const recipes = await getList();
-    const loading = false;
-
-    this.setState({
-      recipes,
-      loading
-    });
+    getList()
+      .then(recipes => {
+        const loading = false;
+        this.setState({
+          recipes,
+          loading
+        });
+      });
   }
 
   _renderRecipe() {

@@ -17,7 +17,7 @@ export default class Home extends AuthBase {
     };
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.checkAuth();
     
     const params = new URLSearchParams(window.location.search);
