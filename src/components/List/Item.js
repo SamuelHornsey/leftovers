@@ -1,8 +1,8 @@
-import { h, Component } from "preact";
+import { h, Component } from 'preact';
 
-import "./Item.scss";
+import './Item.scss';
 
-import tick from "../../assets/tick.png";
+import tick from '../../assets/tick.png';
 
 export default class Item extends Component {
   constructor(props) {
@@ -57,8 +57,8 @@ export default class Item extends Component {
         <div
           class={
             controls
-              ? "Item__controls Item__controls--active"
-              : "Item__controls"
+              ? 'Item__controls Item__controls--active'
+              : 'Item__controls'
           }
         >
           <div class="Item__delete">Delete</div>

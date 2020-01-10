@@ -1,9 +1,9 @@
-import { h, Component } from "preact";
+import { h, Component } from 'preact';
 
-import { getRecipeById } from "../../services/http";
-import { addFavs } from "../../services/favs";
+import { getRecipeById } from '../../services/http';
+import { addFavs } from '../../services/favs';
 
-import "./Recipe.scss";
+import './Recipe.scss';
 
 export default class Recipe extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ export default class Recipe extends Component {
       });
     }
 
-    window.open(this.state.recipe.sourceUrl, "_blank");
+    window.open(this.state.recipe.sourceUrl, '_blank');
   }
 
   async _list(e) {
@@ -66,7 +66,7 @@ export default class Recipe extends Component {
     return (
       <div
         onClick={e => this._expand(e)}
-        class={this.state.expanded ? "Recipe Recipe--open" : "Recipe"}
+        class={this.state.expanded ? 'Recipe Recipe--open' : 'Recipe'}
       >
         <div class="Recipe__container">
           <div class="Recipe__col Recipe__col--hidden">
@@ -87,7 +87,7 @@ export default class Recipe extends Component {
               Add to List
             </a>
 
-            {this.props.variant === "remove" ? (
+            {this.props.variant === 'remove' ? (
               <a
                 ref={link => (this.favs = link)}
                 class="Recipe__link Recipe__link--remove"

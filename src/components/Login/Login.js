@@ -1,14 +1,14 @@
-import { h } from "preact";
-import { route } from "preact-router";
-import { login as doLogin, isAuthenticated } from "../../services/auth";
+import { h } from 'preact';
+import { route } from 'preact-router';
+import { login as doLogin, isAuthenticated } from '../../services/auth';
 
-import "./Login.scss";
+import './Login.scss';
 
-import logo from "../../assets/login.png";
+import logo from '../../assets/login.png';
 
 const Login = () => {
   if (isAuthenticated()) {
-    return route("/", true);
+    return route('/', true);
   }
 
   const login = e => {
@@ -28,8 +28,8 @@ const Login = () => {
       </button>
 
       <div class="Login__name">
-        Made by{" "}
-        <a href="https://github.com/SamuelHornsey" target="_blank">
+        Made by{' '}
+        <a href="https://github.com/SamuelHornsey" target="_blank" rel="noopener noreferrer">
           Samuel Hornsey
         </a>
       </div>

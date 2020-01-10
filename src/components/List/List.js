@@ -1,13 +1,13 @@
-import { h } from "preact";
+import { h } from 'preact';
 
-import AuthBase from "../AuthBase/AuthBase";
+import AuthBase from '../AuthBase/AuthBase';
 import Item from './Item';
 
-import { getList } from "../../services/list";
+import { getList } from '../../services/list';
 
-import "./List.scss";
+import './List.scss';
 
-import timer from "../../assets/sand-clock.png";
+import timer from '../../assets/sand-clock.png';
 
 export default class List extends AuthBase {
   constructor(props) {
@@ -19,16 +19,17 @@ export default class List extends AuthBase {
     };
   }
 
-  async componentDidMount() {
+  componentWillMount() {
     this.checkAuth();
 
-    const recipes = await getList();
-    const loading = false;
-
-    this.setState({
-      recipes,
-      loading
-    });
+    getList()
+      .then(recipes => {
+        const loading = false;
+        this.setState({
+          recipes,
+          loading
+        });
+      });
   }
 
   _renderRecipe() {
