@@ -3,13 +3,18 @@ node_js:
   - 12
 
 install:
+  - npm install -g s3-deploy
   - npm install
 
 script:
+  - npm run lint
   - echo "write some tests..."
 
 deploy:
   provider: script
-  script: npm run deploy
+  script:
+    - npm run clean
+    - npm run build
+    - s3-deploy './dist/**' --cwd './dist/' --region $AWS_REGION --bucket $AWS_S3_BUCKET
   on:
     tags: true
