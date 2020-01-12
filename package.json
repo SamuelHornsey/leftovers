@@ -4,6 +4,7 @@
   "description": "Leftovers",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src --quiet",
     "build": "webpack --mode=production",
     "start": "webpack-dev-server --mode=development",
     "clean": "rm -rf ./dist",
