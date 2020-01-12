@@ -3,7 +3,6 @@ import { openDB } from 'idb';
 export async function getDB() {
   const db = await openDB('leftovers', '2', {
     upgrade(db) {
-      // const recipes = db.createObjectStore('recipes'); for later
       const favs = db.createObjectStore('favs', {
         keyPath: 'id'
       });

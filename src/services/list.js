@@ -1,15 +1,32 @@
 import { getDB } from './db';
 
-export async function addList(recipe) {
+export async function addList(ingredient) {
   const db = await getDB();
-
-  db.put('list', recipe);
+  db.put('list', ingredient);
 }
 
-export async function getList () {
+export async function addMultipleList(ingredients) {
   const db = await getDB();
 
-  const list = await db.getAllFromIndex('list', 'id');
+  const tx = db.transaction('list', 'readwrite');
 
-  return list;
+  ingredients.forEach(async ingredient => {
+    const _ = await tx.store.get(ingredient.id);
+
+    if (!_) {
+      tx.store.add(ingredient);
+    }
+  });
+
+  await tx.done;
+}
+
+export async function getList() {
+  const db = await getDB();
+  return await db.getAllFromIndex('list', 'id');
+}
+
+export async function deleteListItem(id) {
+  const db = await getDB();
+  await db.delete('list', id);
 }

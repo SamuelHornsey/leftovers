@@ -2,10 +2,15 @@ import { h, Component } from 'preact';
 
 import { getRecipeById } from '../../services/http';
 import { addFavs } from '../../services/favs';
+import { addMultipleList } from '../../services/list';
 
 import './Recipe.scss';
 
 export default class Recipe extends Component {
+  /**
+   * Constructor
+   * @param {*} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +18,10 @@ export default class Recipe extends Component {
     };
   }
 
+  /**
+   * Expend the recipe
+   * @param {event} e
+   */
   _expand(e) {
     e.preventDefault();
 
@@ -25,6 +34,10 @@ export default class Recipe extends Component {
     }
   }
 
+  /**
+   * Open the recipe in a new browser tab
+   * @param {event} e
+   */
   async _open(e) {
     e.preventDefault();
 
@@ -37,6 +50,11 @@ export default class Recipe extends Component {
     window.open(this.state.recipe.sourceUrl, '_blank');
   }
 
+  /**
+   * Add the ingredients from the recipe
+   * to the users list
+   * @param {event} e
+   */
   async _list(e) {
     e.preventDefault();
     if (!this.state.recipe) {
@@ -46,22 +64,31 @@ export default class Recipe extends Component {
     }
 
     const { extendedIngredients } = this.state.recipe;
+    await addMultipleList(extendedIngredients);
 
-    extendedIngredients.forEach(ingredient => {
-
-    });
   }
 
+  /**
+   * Add the recipe to the users favs
+   * @param {*} e
+   */
   _favs(e) {
     e.preventDefault();
     addFavs(this.props);
   }
 
+  /**
+   * Remove the recipe from the users fav
+   * @param {*} e
+   */
   _remove (e) {
     e.preventDefault(e);
     this.props.remove(this.props);
   }
 
+  /**
+   * Render the recipe
+   */
   render() {
     return (
       <div
