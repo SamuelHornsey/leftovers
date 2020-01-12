@@ -12,10 +12,9 @@ script:
 
 before_deploy:
   - npm install -g s3-deploy
-  - npm install
 
 deploy:
   provider: script
-  script: npm run clean && npm run build && s3-deploy './dist/**' --cwd './dist/' --region $AWS_REGION --bucket $AWS_S3_BUCKET
+  script: npm install && npm run clean && npm run build && s3-deploy './dist/**' --cwd './dist/' --region $AWS_REGION --bucket $AWS_S3_BUCKET
   on:
     tags: true
