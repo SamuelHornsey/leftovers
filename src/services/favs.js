@@ -2,7 +2,6 @@ import { getDB } from './db';
 
 export async function addFavs(recipe) {
   const db = await getDB();
-
   db.put('favs', recipe);
 }
 

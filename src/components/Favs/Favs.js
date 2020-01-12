@@ -20,6 +20,9 @@ export default class Favs extends AuthBase {
 
   componentDidMount() {
     this.checkAuth();
+  }
+
+  componentWillMount () {
     this._loadRecipes();
   }
 

@@ -1,16 +1,37 @@
 @keyframes shake-animation {
-  0% {
-    transform: rotate(-20deg);
-    animation-timing-function: ease-in;
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
   }
-  50% {
-    transform: rotate(1.5deg);
-    animation-timing-function: ease-out;
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
   }
 }
 
 .Item {
   position: relative;
+  margin: 20px 0px;
+
+  &--controls {
+    margin-bottom: 40px;
+
+    .Item__container {
+      animation: shake-animation 0.82s infinite;
+    }
+  }
 
   &__container {
     display: flex;
@@ -21,9 +42,6 @@
     align-items: center;
     position: relative;
     z-index: 1;
-
-    animation-name: shake-animation;
-    animation-iteration-count: infinite;
     // animation-direction: alternate;
   }
 
