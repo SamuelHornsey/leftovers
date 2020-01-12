@@ -1,8 +1,8 @@
-import { getDB } from "./db";
+import { getDB } from './db';
 
 export async function addList(ingredient) {
   const db = await getDB();
-  db.put("list", ingredient);
+  db.put('list', ingredient);
 }
 
 export async function addMultipleList(ingredients) {
@@ -23,10 +23,10 @@ export async function addMultipleList(ingredients) {
 
 export async function getList() {
   const db = await getDB();
-  return await db.getAllFromIndex("list", "id");
+  return await db.getAllFromIndex('list', 'id');
 }
 
 export async function deleteListItem(id) {
   const db = await getDB();
-  await db.delete("list", id);
+  await db.delete('list', id);
 }

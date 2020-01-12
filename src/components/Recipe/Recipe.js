@@ -9,7 +9,7 @@ import './Recipe.scss';
 export default class Recipe extends Component {
   /**
    * Constructor
-   * @param {*} props 
+   * @param {*} props
    */
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ export default class Recipe extends Component {
 
   /**
    * Expend the recipe
-   * @param {event} e 
+   * @param {event} e
    */
   _expand(e) {
     e.preventDefault();
@@ -36,7 +36,7 @@ export default class Recipe extends Component {
 
   /**
    * Open the recipe in a new browser tab
-   * @param {event} e 
+   * @param {event} e
    */
   async _open(e) {
     e.preventDefault();
@@ -53,7 +53,7 @@ export default class Recipe extends Component {
   /**
    * Add the ingredients from the recipe
    * to the users list
-   * @param {event} e 
+   * @param {event} e
    */
   async _list(e) {
     e.preventDefault();
@@ -70,7 +70,7 @@ export default class Recipe extends Component {
 
   /**
    * Add the recipe to the users favs
-   * @param {*} e 
+   * @param {*} e
    */
   _favs(e) {
     e.preventDefault();
@@ -79,7 +79,7 @@ export default class Recipe extends Component {
 
   /**
    * Remove the recipe from the users fav
-   * @param {*} e 
+   * @param {*} e
    */
   _remove (e) {
     e.preventDefault(e);

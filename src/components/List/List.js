@@ -1,11 +1,11 @@
-import { h } from "preact";
+import { h } from 'preact';
 
-import AuthBase from "../AuthBase/AuthBase";
-import Item from "./Item";
+import AuthBase from '../AuthBase/AuthBase';
+import Item from './Item';
 
-import { getList, deleteListItem } from "../../services/list";
+import { getList, deleteListItem } from '../../services/list';
 
-import "./List.scss";
+import './List.scss';
 
 export default class List extends AuthBase {
   // Constructor
@@ -47,7 +47,7 @@ export default class List extends AuthBase {
 
   /**
    * Remove an ingredient
-   * @param {*} ingredient 
+   * @param {*} ingredient
    */
   async _remove(ingredient) {
     const { id } = ingredient;

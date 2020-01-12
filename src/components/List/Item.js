@@ -7,7 +7,7 @@ import tick from '../../assets/tick.png';
 export default class Item extends Component {
   /**
    * Constructor
-   * @param {*} props 
+   * @param {*} props
    */
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ export default class Item extends Component {
 
   /**
    * Hold start to show delete buttons
-   * @param {*} e 
+   * @param {*} e
    */
   _delete(e) {
     this.buttonPressTimer = setTimeout(() => this.setState({ controls: true }), 1000);
@@ -35,7 +35,7 @@ export default class Item extends Component {
 
   /**
    * When delete hold is released
-   * @param {*} e 
+   * @param {*} e
    */
   _deleteRelease(e) {
     clearTimeout(this.buttonPressTimer);
@@ -43,7 +43,7 @@ export default class Item extends Component {
 
   /**
    * Delete the item from the list of ingredients
-   * @param {*} e 
+   * @param {*} e
    */
   _deleteItem (e) {
     this.setState({ controls: false });
@@ -65,7 +65,7 @@ export default class Item extends Component {
     const { status, controls } = this.state;
 
     return (
-      <div class={controls ? "Item Item--controls" : "Item"}>
+      <div class={controls ? 'Item Item--controls' : 'Item'}>
         <div
           class="Item__container"
           onClick={() => this._toggle()}

@@ -48,7 +48,7 @@ export default class Favs extends AuthBase {
 
   /**
    * Remove a recipe
-   * @param {*} recipe 
+   * @param {*} recipe
    */
   async _remove(recipe) {
     const { id } = recipe;
