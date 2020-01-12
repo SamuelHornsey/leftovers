@@ -5,6 +5,10 @@ import './Item.scss';
 import tick from '../../assets/tick.png';
 
 export default class Item extends Component {
+  /**
+   * Constructor
+   * @param {*} props 
+   */
   constructor(props) {
     super(props);
 
@@ -14,27 +18,48 @@ export default class Item extends Component {
     };
   }
 
+  /**
+   * Toggle tick status
+   */
   _toggle() {
     this.setState({ status: !this.state.status });
   }
 
+  /**
+   * Hold start to show delete buttons
+   * @param {*} e 
+   */
   _delete(e) {
     this.buttonPressTimer = setTimeout(() => this.setState({ controls: true }), 1000);
   }
 
+  /**
+   * When delete hold is released
+   * @param {*} e 
+   */
   _deleteRelease(e) {
     clearTimeout(this.buttonPressTimer);
   }
 
+  /**
+   * Delete the item from the list of ingredients
+   * @param {*} e 
+   */
   _deleteItem (e) {
     this.setState({ controls: false });
     this.props.remove(this.props);
   }
 
+  /**
+   * Close the delete controls
+   */
   _close() {
     this.setState({ controls: false });
   }
 
+  /**
+   * Render the ingredient
+   */
   render() {
     const { title } = this.props;
     const { status, controls } = this.state;

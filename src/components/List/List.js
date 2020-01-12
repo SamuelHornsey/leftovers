@@ -7,9 +7,8 @@ import { getList, deleteListItem } from "../../services/list";
 
 import "./List.scss";
 
-import timer from "../../assets/sand-clock.png";
-
 export default class List extends AuthBase {
+  // Constructor
   constructor(props) {
     super(props);
 
@@ -19,14 +18,23 @@ export default class List extends AuthBase {
     };
   }
 
+  /**
+   * Component did mount
+   */
   componentDidMount() {
     this.checkAuth();
   }
 
+  /**
+   * Component will mount
+   */
   componentWillMount() {
     this._loadList();
   }
 
+  /**
+   * Load the list of ingredients
+   */
   async _loadList() {
     const ingredients = await getList();
     const loading = false;
@@ -37,12 +45,19 @@ export default class List extends AuthBase {
     });
   }
 
+  /**
+   * Remove an ingredient
+   * @param {*} ingredient 
+   */
   async _remove(ingredient) {
     const { id } = ingredient;
     await deleteListItem(id);
     this._loadList();
   }
 
+  /**
+   * Render ingredients
+   */
   _renderIngredients() {
     const ingredients = [];
 
@@ -61,6 +76,7 @@ export default class List extends AuthBase {
     return ingredients;
   }
 
+  // Render
   render() {
     return (
       <div class="Search">
