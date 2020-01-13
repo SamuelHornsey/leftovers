@@ -7,6 +7,7 @@ import { addMultipleList } from '../../services/list';
 import './Recipe.scss';
 
 export default class Recipe extends Component {
+
   /**
    * Constructor
    * @param {*} props

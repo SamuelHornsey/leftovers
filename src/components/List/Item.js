@@ -5,6 +5,7 @@ import './Item.scss';
 import tick from '../../assets/tick.png';
 
 export default class Item extends Component {
+
   /**
    * Constructor
    * @param {*} props

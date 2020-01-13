@@ -61,7 +61,7 @@ export default class Home extends AuthBase {
 
   /**
    * Add an ingredient to the list
-   * @param {*} ingredient 
+   * @param {*} ingredient
    */
   _add(ingredient) {
     const { ingredients } = this.state;
@@ -76,7 +76,7 @@ export default class Home extends AuthBase {
 
   /**
    * Remove an ingredient from the list
-   * @param {*} key 
+   * @param {*} key
    */
   _remove(key) {
     const { ingredients } = this.state;
