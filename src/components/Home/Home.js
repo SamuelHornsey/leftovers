@@ -9,6 +9,7 @@ import Tile from '../Tile/Tile';
 import './Home.scss';
 
 export default class Home extends AuthBase {
+  // Constructor
   constructor(props) {
     super(props);
 
@@ -17,9 +18,17 @@ export default class Home extends AuthBase {
     };
   }
 
-  componentWillMount () {
+  /**
+   * Component did mount
+   */
+  componentDidMount() {
     this.checkAuth();
-    
+  }
+
+  /**
+   * Component will mount
+   */
+  componentWillMount() {
     const params = new URLSearchParams(window.location.search);
     const _ingredients = params.get('ingredients');
 
@@ -30,7 +39,10 @@ export default class Home extends AuthBase {
     this.setState({ ingredients });
   }
 
-  _updateUrl () {
+  /**
+   * Push each ingredient to the URL
+   */
+  _updateUrl() {
     const { ingredients } = this.state;
 
     if (ingredients.length === 0) {
@@ -47,6 +59,10 @@ export default class Home extends AuthBase {
     route(`/?ingredients=${search}`, true);
   }
 
+  /**
+   * Add an ingredient to the list
+   * @param {*} ingredient 
+   */
   _add(ingredient) {
     const { ingredients } = this.state;
 
@@ -58,6 +74,10 @@ export default class Home extends AuthBase {
     this._updateUrl();
   }
 
+  /**
+   * Remove an ingredient from the list
+   * @param {*} key 
+   */
   _remove(key) {
     const { ingredients } = this.state;
     ingredients.splice(key, 1);
@@ -66,6 +86,9 @@ export default class Home extends AuthBase {
     this._updateUrl();
   }
 
+  /**
+   * Render the tiles
+   */
   _tiles() {
     const tiles = [];
     const { ingredients } = this.state;
@@ -79,7 +102,10 @@ export default class Home extends AuthBase {
     return tiles;
   }
 
-  _search () {
+  /**
+   * Search for the ingredients
+   */
+  _search() {
     const { ingredients } = this.state;
 
     if (ingredients.length === 0) {
@@ -95,6 +121,7 @@ export default class Home extends AuthBase {
     route(`/search?ingredients=${search}`);
   }
 
+  // Render
   render() {
     return (
       <div class="Home">

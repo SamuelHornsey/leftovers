@@ -15,6 +15,17 @@ const GA = `
 </script>
 `;
 
+const sentryScript = `<script src="https://browser.sentry-cdn.com/5.11.0/bundle.min.js" integrity="sha384-jbFinqIbKkHNg+QL+yxB4VrBC0EAPTuaLGeRT0T+NfEV89YC6u1bKxHLwoo+/xxY" crossorigin="anonymous">
+</script>`;
+
+const sentry = `
+<script>
+  (function () {
+    Sentry.init({ dsn: 'https://8a2ec92cad9a4e6592cc152c03b31457@sentry.io/1878945' });
+  })();
+</script>
+`
+
 module.exports = (env, argv) => {
   const devMode = argv.mode !== "production";
 
@@ -66,7 +77,9 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         template: "src/index.html",
         favicon: "src/assets/favicon.png",
-        GA: devMode ? "" : GA
+        GA: devMode ? "" : GA,
+        sentryScript: devMode ? "" : sentryScript,
+        sentry: devMode ? "" : sentry
       }),
 
       new MiniCssExtractPlugin({
