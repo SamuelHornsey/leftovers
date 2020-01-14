@@ -1,5 +1,4 @@
-const API_KEY = '3e9410c7d40a4f98bf34f1a094e8c2d2';
-const API_URL = 'api.spoonacular.com';
+const API_URL = (process.env.NODE_ENV === 'production') ? 'https://leftovers.samuelhornsey.com' : 'http://localhost:8080';
 
 export function getRecipesByIngredients(ingredients) {
   let search = ingredients[0];
@@ -10,7 +9,7 @@ export function getRecipesByIngredients(ingredients) {
 
   return new Promise((resolve, reject) => {
     fetch(
-      `https://${API_URL}/recipes/findByIngredients?ingredients=${search}&number=10&apiKey=${API_KEY}`
+      `${API_URL}/api/recipes/findByIngredients?ingredients=${search}&number=10`
     ).then(async res => {
       if (!res.ok) {
         return reject();
@@ -24,7 +23,7 @@ export function getRecipesByIngredients(ingredients) {
 export function getRecipeById(id) {
   return new Promise((resolve, reject) => {
     fetch(
-      `https://${API_URL}/recipes/${id}/information?includeNutrition=false&apiKey=${API_KEY}`
+      `${API_URL}/api/recipes/${id}/information?includeNutrition=false`
     ).then(res => {
       if (!res.ok) {
         return reject();

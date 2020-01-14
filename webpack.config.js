@@ -24,7 +24,7 @@ const sentry = `
     Sentry.init({ dsn: 'https://8a2ec92cad9a4e6592cc152c03b31457@sentry.io/1878945' });
   })();
 </script>
-`
+`;
 
 module.exports = (env, argv) => {
   const devMode = argv.mode !== "production";
@@ -101,7 +101,14 @@ module.exports = (env, argv) => {
       compress: true,
 
       // enable pushState() routing, as used by preact-router et al:
-      historyApiFallback: true
+      historyApiFallback: true,
+
+      proxy: {
+        "/api": {
+          target: "http://localhost:4000",
+          pathRewrite: { "^/api": "" }
+        }
+      }
     }
   };
 };
