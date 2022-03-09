@@ -23,6 +23,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Build
-      run: |
-        npm install
-        npx run build
+      run: npm install
+      run: npm run build
+        
+    - name: Deploy
+      run: echo "Deploy to S3"
