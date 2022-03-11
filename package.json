@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "core-js": "^3.6.5",
+    "firebase": "^9.6.8",
     "idb": "^4.0.5",
     "preact": "^8.5.3",
     "preact-async-route": "^2.2.1",

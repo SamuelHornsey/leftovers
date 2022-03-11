@@ -19,13 +19,6 @@ export default class List extends AuthBase {
   }
 
   /**
-   * Component did mount
-   */
-  componentDidMount() {
-    this.checkAuth();
-  }
-
-  /**
    * Component will mount
    */
   componentWillMount() {

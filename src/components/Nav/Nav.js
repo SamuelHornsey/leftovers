@@ -1,8 +1,6 @@
 import { h } from 'preact';
 import { Link } from 'preact-router';
 
-import { logout } from '../../services/auth';
-
 import home from '../../assets/home.png';
 import settings from '../../assets/settings.png';
 import question from '../../assets/question.png';
@@ -19,7 +17,6 @@ const Nav = props => {
 
   const _logout = e => {
     e.preventDefault();
-    logout();
   };
 
   return (
