@@ -20,13 +20,6 @@ export default class Favs extends AuthBase {
   }
 
   /**
-   * Component did mount
-   */
-  componentDidMount() {
-    this.checkAuth();
-  }
-
-  /**
    * Component will mount
    */
   componentWillMount () {

@@ -6,7 +6,6 @@ import { Router } from 'preact-router';
 import Home from './Home/Home';
 import Search from './Search/Search';
 import Login from './Login/Login';
-import Callback from './Callback/Callback';
 import Settings from './Settings/Settings';
 import List from './List/List';
 import About from './About/About';
@@ -70,10 +69,9 @@ export default class App extends Component {
             <img src={hamburger} alt="Menu" />
           </a>
           <Router>
+            <Login path="/login" />
             <Home path="/" />
             <Search path="/search" />
-            <Login path="/login" />
-            <Callback path="/callback" />
             <Settings path="/settings" />
             <About path="/about" />
             <List path="/list" />
