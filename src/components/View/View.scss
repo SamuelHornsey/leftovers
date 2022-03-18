@@ -1,0 +1,15 @@
+.View {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background: #feffd7;
+  min-height: 100vh;
+  box-shadow: -5px 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  will-change: transform;
+
+  &--open {
+    transform: translateX(50%);
+  }
+}

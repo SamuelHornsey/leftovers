@@ -1,14 +1,13 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
-import AuthBase from '../AuthBase/AuthBase';
-import Recipe from '../Recipe/Recipe';
+import Recipe from '../../components/Recipe/Recipe';
 
 import { getFavs, deleteFav } from '../../services/favs';
 
 import './Favs.scss';
 import timer from '../../assets/sand-clock.png';
 
-export default class Favs extends AuthBase {
+export default class Favs extends Component {
   // Constructor
   constructor(props) {
     super(props);

@@ -1,13 +1,12 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
-import AuthBase from '../AuthBase/AuthBase';
 import Item from './Item';
 
 import { getList, deleteListItem } from '../../services/list';
 
 import './List.scss';
 
-export default class List extends AuthBase {
+export default class List extends Component {
   // Constructor
   constructor(props) {
     super(props);
