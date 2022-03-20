@@ -1,81 +1,59 @@
-import { h, Component } from 'preact';
+import { h } from "preact";
+import { useEffect, useContext, useReducer } from "preact/hooks";
+import { collection, query, getDocs, onSnapshot } from "firebase/firestore";
 
-import Item from './Item';
+import Item from "../../components/Item/Item";
 
-import { getList, deleteListItem } from '../../services/list';
+import UserContext from "../../services/user";
+import { db } from "../../services/firebase";
 
-import './List.scss';
+import "./List.scss";
 
-export default class List extends Component {
-  // Constructor
-  constructor(props) {
-    super(props);
+const List = () => {
+  const user = useContext(UserContext);
+  const [state, setState] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { loading: true, ingredients: [], err: false }
+  );
 
-    this.state = {
-      ingredients: [],
-      loading: true
-    };
-  }
+  useEffect(() => {
+    getDocs(collection(db, `users/${user.uid}/ingredients`))
+      .then(docs => {
+        const ingredients = [];
+        docs.forEach(doc => {
+          ingredients.push(doc.data());
+        });
 
-  /**
-   * Component will mount
-   */
-  componentWillMount() {
-    this._loadList();
-  }
+        setState({ingredients, loading: false});
+      })
+      .catch(() => setState({err: true, loading: false}));
 
-  /**
-   * Load the list of ingredients
-   */
-  async _loadList() {
-    const ingredients = await getList();
-    const loading = false;
+    onSnapshot(query(collection(db, `users/${user.uid}/ingredients`)), snapshot => {
+      const ingredients = [];
 
-    this.setState({
-      ingredients,
-      loading
+      snapshot.forEach(doc => {
+        ingredients.push(doc.data());
+      });
+
+      setState({ingredients});
     });
-  }
+  }, []);
 
-  /**
-   * Remove an ingredient
-   * @param {*} ingredient
-   */
-  async _remove(ingredient) {
-    const { id } = ingredient;
-    await deleteListItem(id);
-    this._loadList();
-  }
+  return (
+    <div class="Search">
+      <h1 class="Search__title">List</h1>
 
-  /**
-   * Render ingredients
-   */
-  _renderIngredients() {
-    const ingredients = [];
+      {state.ingredients.map((ingredient, key) => {
+        return (
+          <Item
+            index={key}
+            title={ingredient.name}
+            {...ingredient}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
-    this.state.ingredients.map((ingredient, i) => {
-      const { name } = ingredient;
-      ingredients.push(
-        <Item
-          index={i}
-          title={name}
-          remove={ingredient => this._remove(ingredient)}
-          {...ingredient}
-        />
-      );
-    });
-
-    return ingredients;
-  }
-
-  // Render
-  render() {
-    return (
-      <div class="Search">
-        <h1 class="Search__title">List</h1>
-
-        {this._renderIngredients()}
-      </div>
-    );
-  }
-}
+export default List;

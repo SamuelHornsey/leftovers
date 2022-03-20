@@ -5,7 +5,6 @@ import { signOut } from 'firebase/auth';
 import { auth } from "../../services/firebase";
 
 import home from '../../assets/home.png';
-import settings from '../../assets/settings.png';
 import question from '../../assets/question.png';
 import list from '../../assets/list.png';
 import logoutIcon from '../../assets/logout.png';
@@ -41,12 +40,6 @@ const Nav = props => {
             Favs
           </Link>
           <img src={favourite} alt="Favourite" />
-        </li>
-        <li class="Nav__element">
-          <Link onClick={props.toggleNav} class="Nav__link" href="/settings">
-            Settings
-          </Link>
-          <img src={settings} alt="Settings" />
         </li>
         <li class="Nav__element">
           <Link onClick={props.toggleNav} class="Nav__link" href="/about">

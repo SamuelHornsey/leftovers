@@ -1,61 +1,51 @@
-import { h, Component } from 'preact';
+import { h } from "preact";
+import { useReducer, useContext, useEffect } from "preact/hooks";
+import { collection, query, getDocs, onSnapshot } from "firebase/firestore";
 
-import Recipe from '../../components/Recipe/Recipe';
+import UserContext from "../../services/user";
+import { db } from "../../services/firebase";
 
-import { getFavs, deleteFav } from '../../services/favs';
+import Recipe from "../../components/Recipe/Recipe";
 
-import './Favs.scss';
-import timer from '../../assets/sand-clock.png';
+import "./Favs.scss";
+import timer from "../../assets/sand-clock.png";
 
-export default class Favs extends Component {
-  // Constructor
-  constructor(props) {
-    super(props);
+const Favs = () => {
+  const user = useContext(UserContext);
+  const [state, setState] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { loading: true, recipes: [], err: false }
+  );
 
-    this.state = {
-      recipes: [],
-      loading: true
-    };
-  }
+  useEffect(() => {
+    // Get all recipes
+    getDocs(collection(db, `users/${user.uid}/favourites`))
+      .then((docs) => {
+        const recipes = [];
+        docs.forEach((doc) => {
+          recipes.push(doc.data());
+        });
 
-  /**
-   * Component will mount
-   */
-  componentWillMount () {
-    this._loadRecipes();
-  }
+        setState({ recipes, loading: false });
+      })
+      .catch(() => setState({ loading: false, err: true }));
 
-  /**
-   * Load recipes
-   */
-  async _loadRecipes() {
-    const recipes = await getFavs();
-    const loading = false;
+    // On recipes update
+    onSnapshot(
+      query(collection(db, `users/${user.uid}/favourites`)),
+      (snapshot) => {
+        const recipes = [];
+        snapshot.forEach((doc) => {
+          recipes.push(doc.data());
+        });
 
-    this.setState({
-      recipes,
-      loading
-    });
-  }
+        setState({ recipes });
+      }
+    );
+  }, []);
 
-  /**
-   * Remove a recipe
-   * @param {*} recipe
-   */
-  async _remove(recipe) {
-    const { id } = recipe;
-    await deleteFav(id);
-    this._loadRecipes();
-  }
-
-  /**
-   * Render recipes
-   */
-  _renderRecipe() {
-    const { recipes, loading, error } = this.state;
-    const tiles = [];
-
-    if (loading) {
+  const recipes = () => {
+    if (state.loading) {
       return (
         <div class="Favs__loading">
           <img src={timer} alt="Loading" />
@@ -63,7 +53,7 @@ export default class Favs extends Component {
       );
     }
 
-    if (error) {
+    if (state.err) {
       return (
         <div class="Favs__none">
           <h4>Oops. Something Went Wrong...</h4>
@@ -71,7 +61,7 @@ export default class Favs extends Component {
       );
     }
 
-    if (recipes.length === 0) {
+    if (state.recipes.length === 0) {
       return (
         <div class="Favs__none">
           <h4>No Results...</h4>
@@ -79,28 +69,18 @@ export default class Favs extends Component {
       );
     }
 
-    recipes.map((recipe, i) => {
-      tiles.push(
-        <Recipe
-          index={i}
-          remove={index => this._remove(index)}
-          variant={'remove'}
-          {...recipe}
-        />
-      );
+    return state.recipes.map((recipe, i) => {
+      return <Recipe index={i} variant={"remove"} {...recipe} />;
     });
+  };
 
-    return tiles;
-  }
+  return (
+    <div class="Favs">
+      <h1 class="Favs__title">Favourites</h1>
 
-  // Render
-  render() {
-    return (
-      <div class="Favs">
-        <h1 class="Favs__title">Favourites</h1>
+      {recipes()}
+    </div>
+  );
+};
 
-        {this._renderRecipe()}
-      </div>
-    );
-  }
-}
+export default Favs;

@@ -6,6 +6,7 @@ import {
   connectAuthEmulator,
 } from "firebase/auth";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore"
 
 
 // Your web app's Firebase configuration
@@ -25,10 +26,13 @@ export const functions = getFunctions(app);
 
 export const auth = getAuth(app);
 
+export const db = getFirestore();
+
 if (process.env.NODE_ENV != 'production') {
   console.warn('ENABLING EMULATOR');
-  connectFunctionsEmulator(functions, "http://localhost:5001");
-  connectAuthEmulator(auth, "http://localhost:9099");
+  connectFunctionsEmulator(functions, 'localhost', 5001);
+  connectAuthEmulator(auth, 'http://localhost:9099');
+  connectFirestoreEmulator(db, 'localhost', 8081);
 }
 
 export const provider = new GoogleAuthProvider();

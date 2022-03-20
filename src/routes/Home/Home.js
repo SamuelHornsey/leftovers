@@ -37,6 +37,10 @@ const Home = () => {
   };
 
   const search = (exclude) => {
+    if (ingredients.length < 1) {
+      return;
+    }
+
     const path = `/search?ingredients=${ingredients.join(",")}`;
     if (exclude) {
       return route(`${path}&exclude=true`, true);

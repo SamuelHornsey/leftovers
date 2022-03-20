@@ -13,7 +13,6 @@ import View from "./View/View";
 import Home from "../routes/Home/Home";
 import Search from "../routes/Search/Search";
 import Login from "../routes/Login/Login";
-import Settings from "../routes/Settings/Settings";
 import List from "../routes/List/List";
 import About from "../routes/About/About";
 import Favs from "../routes/Favs/Favs";
@@ -46,7 +45,6 @@ const App = () => {
             <GuardedRoute path="/" component={Home} />
             <Route path="/login" component={Login} />
             <GuardedRoute path="/search" component={Search} />
-            <GuardedRoute path="/settings" component={Settings} />
             <GuardedRoute path="/about" component={About} />
             <GuardedRoute path="/list" component={List} />
             <GuardedRoute path="/favs" component={Favs} />

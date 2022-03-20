@@ -1,72 +1,84 @@
-import { h, Component } from 'preact';
+import { h } from "preact";
+import { useState } from "preact/hooks";
 
-import './Header.scss';
+import "./Header.scss";
 
-import plus from '../../assets/plus.png';
-import triangle from '../../assets/triangle.png';
+import plus from "../../assets/plus.png";
+import triangle from "../../assets/triangle.png";
 
-export default class Header extends Component {
-  constructor(props) {
-    super(props);
+const Header = (props) => {
+  const [exclude, setExclude] = useState(false);
+  const [input, setInput] = useState();
 
-    this.state = {
-      exclude: false
-    };
+  const toggle = () => {
+    setExclude(!exclude);
   }
 
-  _add(e) {
-    if (e.target === this.input) {
-      if (e.key != 'Enter') {
-        return;
-      }
-    }
+  const onInput = (e) => {
+    setInput(e.target.value);
+  }
 
-    if (this.input.value === '') {
+  const add = (e) => {
+    if (e.key != 'Enter') {
       return;
     }
 
-    this.props.onAdd(this.input.value.toLowerCase());
-    this.input.value = '';
+    if (input === '') {
+      return;
+    }
+
+    props.onAdd(input.toLowerCase());
+    setInput('');
   }
 
-  _toggleDisabled(e) {
-    e.preventDefault();
-    this.setState({ exclude: !this.state.exclude });
+  const search = () => {
+    props.search(exclude);
   }
 
-  _search(e) {
-    e.preventDefault();
-    this.props.search();
-  }
-
-  render() {
-    return (
-      <header class="Header">
-        <div class="Header__ingredients">
-          <div class="Header__col">
-            <input onKeyDown={e => this._add(e)} ref={input => this.input = input} class="Header__input" name="ingredient" type="text" placeholder="Ingredients..." />
-          </div>
-          <div class="Header__col">
-            <a href="#" onClick={e => this._add(e)} class="Header__btn">
-              <img src={plus} alt="Plus" />
-            </a>
-          </div>
+  return (
+    <header class="Header">
+      <div class="Header__ingredients">
+        <div class="Header__col">
+          <input
+            onKeyDown={add}
+            onInput={onInput}
+            value={input}
+            class="Header__input"
+            name="ingredient"
+            type="text"
+            placeholder="Ingredients..."
+          />
         </div>
-
-        <div class="Header__controls">
-          <button onClick={e => this._toggleDisabled(e)} class={this.state.exclude ? 'Header__controls-btn Header__controls-btn--pink' : 'Header__controls-btn Header__controls-btn--pink Header__controls-btn--disabled'}>
-            Exclude Pantry Essentials
-          </button>
-          <button onClick={e => this._search(e)} class="Header__controls-btn Header__controls-btn--green">
-            <div>
-              Go!
-            </div>
-            <div class="Header__controls-triangle">
-              <img src={triangle} alt="Go" />
-            </div>
-          </button>
+        <div class="Header__col">
+          <a href="#" onClick={(e) => this._add(e)} class="Header__btn">
+            <img src={plus} alt="Plus" />
+          </a>
         </div>
-      </header>
-    );
-  }
-}
+      </div>
+
+      <div class="Header__controls">
+        <button
+          onClick={toggle}
+          class={
+            exclude
+              ? "Header__controls-btn Header__controls-btn--pink"
+              : "Header__controls-btn Header__controls-btn--pink Header__controls-btn--disabled"
+          }
+        >
+          Exclude Pantry Essentials
+        </button>
+        <button
+          onClick={search}
+          class="Header__controls-btn Header__controls-btn--green"
+        >
+          <div>Go!</div>
+          <div class="Header__controls-triangle">
+            <img src={triangle} alt="Go" />
+          </div>
+        </button>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
