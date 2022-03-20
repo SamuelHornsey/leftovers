@@ -1,19 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const WorkboxPlugin = require("workbox-webpack-plugin");
 const path = require("path");
-
-const GA = `
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129566070-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-129566070-3');
-</script>
-`;
 
 const sentryScript = `<script src="https://browser.sentry-cdn.com/5.11.0/bundle.min.js" integrity="sha384-jbFinqIbKkHNg+QL+yxB4VrBC0EAPTuaLGeRT0T+NfEV89YC6u1bKxHLwoo+/xxY" crossorigin="anonymous">
 </script>`;
@@ -77,7 +64,6 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         template: "src/index.html",
         favicon: "src/assets/favicon.png",
-        GA: devMode ? "" : GA,
         sentryScript: devMode ? "" : sentryScript,
         sentry: devMode ? "" : sentry
       }),
