@@ -1,6 +1,13 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  connectAuthEmulator,
+} from "firebase/auth";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore"
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,17 +17,25 @@ const firebaseConfig = {
   projectId: "leftovers-77cec",
   storageBucket: "leftovers-77cec.appspot.com",
   messagingSenderId: "131445621682",
-  appId: "1:131445621682:web:c404a72ebbfc0eba4bdaab"
+  appId: "1:131445621682:web:c404a72ebbfc0eba4bdaab",
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
+export const functions = getFunctions(app);
 
-const provider = new firebase.auth.GoogleAuthProvider();
+export const auth = getAuth(app);
 
-provider.setCustomParameters({ prompt: 'select_account' });
+export const db = getFirestore();
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+if (process.env.NODE_ENV != 'production') {
+  console.warn('ENABLING EMULATOR');
+  connectFunctionsEmulator(functions, 'localhost', 5001);
+  connectAuthEmulator(auth, 'http://localhost:9099');
+  connectFirestoreEmulator(db, 'localhost', 8081);
+}
 
-export default firebase;
+export const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
+
+export const signInWithGoogle = () => signInWithPopup(auth, provider);

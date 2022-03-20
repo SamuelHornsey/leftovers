@@ -1,84 +1,58 @@
 // Preact
-import { h, Component } from 'preact';
-import { Router } from 'preact-router';
+import { h } from "preact";
+import { useState } from "preact/hooks";
+import { Router, Route } from "preact-router";
+import { onAuthStateChanged } from "firebase/auth";
 
 // Components
-import Home from './Home/Home';
-import Search from './Search/Search';
-import Login from './Login/Login';
-import Settings from './Settings/Settings';
-import List from './List/List';
-import About from './About/About';
-import Nav from './Nav/Nav';
-import Favs from './Favs/Favs';
+import Nav from "./Nav/Nav";
+import GuardedRoute from "./GuardedRoute/GuardedRoute";
+import View from "./View/View";
 
-// Graphics
-import hamburger from '../assets/hamburger.png';
+// Views
+import Home from "../routes/Home/Home";
+import Search from "../routes/Search/Search";
+import Login from "../routes/Login/Login";
+import List from "../routes/List/List";
+import About from "../routes/About/About";
+import Favs from "../routes/Favs/Favs";
+
+// Services
+import UserContext from "../services/user";
+import { auth } from "../services/firebase";
 
 // Styles
-import './app.scss';
+import "./app.scss";
 
-export default class App extends Component {
+const App = () => {
+  const [user, setUser] = useState();
+  const [open, setOpen] = useState(false);
 
-  /**
-   * Constructor
-   * @param {*} props
-   */
-  constructor(props) {
-    super(props);
+  onAuthStateChanged(auth, (user) => {
+    setUser(user);
+  });
 
-    this.state = {
-      open: false
-    };
-  }
+  const toggleNav = () => {
+    setOpen(!open);
+  };
 
-  /**
-   * Toggle Nav
-   * @param {*} e
-   */
-  _toggle(e) {
-    e.preventDefault();
-    this.setState({ open: !this.state.open });
-  }
-
-  /**
-   * When user changes view
-   */
-  _goTo() {
-    this.setState({ open: false });
-  }
-
-  /**
-   * Render
-   */
-  render() {
-    return (
-      <div class="Container">
-        <Nav onChange={() => this._goTo()} />
-
-        <div class={this.state.open ? 'View View--open' : 'View'}>
-          <a
-            onClick={e => this._toggle(e)}
-            href="#"
-            class={
-              window.location.pathname != '/login'
-                ? 'Hamburger'
-                : 'Hamburger Hamburger--hidden'
-            }
-          >
-            <img src={hamburger} alt="Menu" />
-          </a>
+  return (
+    <div class="Container">
+      <Nav toggleNav={toggleNav} />
+      <View toggleNav={toggleNav} user={user} open={open}>
+        <UserContext.Provider value={user}>
           <Router>
-            <Login path="/login" />
-            <Home path="/" />
-            <Search path="/search" />
-            <Settings path="/settings" />
-            <About path="/about" />
-            <List path="/list" />
-            <Favs path="/favs" />
+            <GuardedRoute path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <GuardedRoute path="/search" component={Search} />
+            <GuardedRoute path="/about" component={About} />
+            <GuardedRoute path="/list" component={List} />
+            <GuardedRoute path="/favs" component={Favs} />
           </Router>
-        </div>
-      </div>
-    );
-  }
-}
+        </UserContext.Provider>
+      </View>
+    </div>
+  );
+};
+
+export default App;
