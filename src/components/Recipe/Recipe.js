@@ -1,159 +1,103 @@
-import { h, Component } from 'preact';
+import { h } from "preact";
+import { useState, useContext } from "preact/hooks";
+import { httpsCallable } from "firebase/functions";
+import { doc, setDoc, deleteDoc, writeBatch } from "firebase/firestore";
 
-import { getRecipeById } from '../../services/http';
-import { addFavs } from '../../services/favs';
-import { addMultipleList } from '../../services/list';
+import UserContext from "../../services/user";
+import { functions, db } from "../../services/firebase";
 
-import './Recipe.scss';
+import "./Recipe.scss";
 
-export default class Recipe extends Component {
+const Recipe = (props) => {
+  const user = useContext(UserContext);
+  const [expanded, setExpanded] = useState(false);
+  const [recipe, setRecipe] = useState({});
 
-  /**
-   * Constructor
-   * @param {*} props
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false
-    };
-  }
+  const expand = () => {
+    setExpanded(!expanded);
+  };
 
-  /**
-   * Expend the recipe
-   * @param {event} e
-   */
-  _expand(e) {
-    e.preventDefault();
-
-    if (
-      e.target != this.view &&
-      e.target != this.favs &&
-      e.target != this.list
-    ) {
-      this.setState({ expanded: !this.state.expanded });
+  const getRecipeById = async (id) => {
+    if (recipe.id) {
+      console.log("from cache");
+      return recipe;
     }
-  }
 
-  /**
-   * Open the recipe in a new browser tab
-   * @param {event} e
-   */
-  async _open(e) {
-    e.preventDefault();
+    const func = httpsCallable(functions, "getRecipeById");
+    const res = await func({ id });
 
-    if (!this.state.recipe) {
-      await getRecipeById(this.props.id).then(recipe => {
-        this.setState({ recipe });
+    setRecipe(res.data);
+    return res.data;
+  };
+
+  const open = () => {
+    getRecipeById(props.id).then((recipe) => {
+      window.open(recipe.sourceUrl, "_blank");
+    });
+  };
+
+  const remove = () => {
+    deleteDoc(doc(db, `users/${user.uid}/favourites/${props.id}`));
+  };
+
+  const list = () => {
+    getRecipeById(props.id).then((recipe) => {
+      const batch = writeBatch(db);
+
+      recipe.extendedIngredients.forEach((ingredient) => {
+        batch.set(
+          doc(db, `users/${user.uid}/ingredients/${ingredient.id}`),
+          ingredient
+        );
       });
-    }
 
-    window.open(this.state.recipe.sourceUrl, '_blank');
-  }
+      batch.commit();
+    });
+  };
 
-  /**
-   * Add the ingredients from the recipe
-   * to the users list
-   * @param {event} e
-   */
-  async _list(e) {
-    e.preventDefault();
-    if (!this.state.recipe) {
-      await getRecipeById(this.props.id).then(recipe => {
-        this.setState({ recipe });
-      });
-    }
+  const favs = () => {
+    setDoc(doc(db, `users/${user.uid}/favourites/${props.id}`), props);
+  };
 
-    const { extendedIngredients } = this.state.recipe;
-    await addMultipleList(extendedIngredients);
+  return (
+    <div onClick={expand} class={expanded ? "Recipe Recipe--open" : "Recipe"}>
+      <div class="Recipe__container">
+        <div class="Recipe__col Recipe__col--hidden">
+          <a class="Recipe__link" onClick={open}>
+            View
+          </a>
+          <a class="Recipe__link Recipe__link--list" href="#" onClick={list}>
+            Add to List
+          </a>
 
-  }
-
-  /**
-   * Add the recipe to the users favs
-   * @param {*} e
-   */
-  _favs(e) {
-    e.preventDefault();
-    addFavs(this.props);
-  }
-
-  /**
-   * Remove the recipe from the users fav
-   * @param {*} e
-   */
-  _remove (e) {
-    e.preventDefault(e);
-    this.props.remove(this.props);
-  }
-
-  /**
-   * Render the recipe
-   */
-  render() {
-    return (
-      <div
-        onClick={e => this._expand(e)}
-        class={this.state.expanded ? 'Recipe Recipe--open' : 'Recipe'}
-      >
-        <div class="Recipe__container">
-          <div class="Recipe__col Recipe__col--hidden">
-            <a
-              ref={link => (this.view = link)}
-              class="Recipe__link"
-              href="#"
-              onClick={e => this._open(e)}
-            >
-              View
+          {props.variant === "remove" ? (
+            <a class="Recipe__link Recipe__link--remove" onClick={remove}>
+              Remove
             </a>
-            <a
-              ref={link => (this.list = link)}
-              class="Recipe__link Recipe__link--list"
-              href="#"
-              onClick={e => this._list(e)}
-            >
-              Add to List
+          ) : (
+            <a class="Recipe__link Recipe__link--favs" onClick={favs}>
+              Add to Favs
             </a>
+          )}
+        </div>
 
-            {this.props.variant === 'remove' ? (
-              <a
-                ref={link => (this.favs = link)}
-                class="Recipe__link Recipe__link--remove"
-                href="#"
-                onClick={e => this._remove(e)}
-              >
-                Remove
-              </a>
-            ) : (
-              <a
-                ref={link => (this.favs = link)}
-                class="Recipe__link Recipe__link--favs"
-                href="#"
-                onClick={e => this._favs(e)}
-              >
-                Add to Favs
-              </a>
-            )}
-          </div>
+        <div class="Recipe__col Recipe__col--hidden Recipe__col--missing">
+          <span class="Recipe__missing">{props.missedIngredientCount}</span>
+          missing ingredient(s)
+        </div>
 
-          <div class="Recipe__col Recipe__col--hidden Recipe__col--missing">
-            <span class="Recipe__missing">
-              {this.props.missedIngredientCount}
-            </span>
-            missing ingredient(s)
-          </div>
+        <div class="Recipe__col">
+          <div class="Recipe__title">{props.title}</div>
+        </div>
 
-          <div class="Recipe__col">
-            <div class="Recipe__title">{this.props.title}</div>
-          </div>
-
-          <div class="Recipe__col">
-            <div class="Recipe__btn">
-              <img src={this.props.image} alt="Image" />
-            </div>
+        <div class="Recipe__col">
+          <div class="Recipe__btn">
+            <img src={props.image} alt="Image" />
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Recipe;

@@ -1,10 +1,8 @@
-import { h } from 'preact';
-
-import AuthBase from '../AuthBase/AuthBase';
+import { h, Component } from 'preact';
 
 import './About.scss';
 
-export default class About extends AuthBase {
+export default class About extends Component {
   /**
    * Render
    */

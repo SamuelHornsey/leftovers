@@ -15,9 +15,9 @@
     "core-js": "^3.6.5",
     "firebase": "^9.6.8",
     "idb": "^4.0.5",
-    "preact": "^8.5.3",
+    "preact": "^10.6.6",
     "preact-async-route": "^2.2.1",
-    "preact-router": "^2.6.1"
+    "preact-router": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
