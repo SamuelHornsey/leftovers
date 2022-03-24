@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore"
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 
 // Your web app's Firebase configuration
@@ -21,6 +22,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LeOXQcfAAAAAMLK8e2jx0wTw6l1SLjxr9XXf9ko'),
+  isTokenAutoRefreshEnabled: true
+});
 
 export const functions = getFunctions(app);
 
