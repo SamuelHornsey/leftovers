@@ -1,0 +1,41 @@
+.About {
+  width: 85%;
+  margin: auto;
+
+  &__title {
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #7a7a7a;
+    margin-top: 70px;
+  }
+
+  &__text {
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #7a7a7a;
+
+    a {
+      color: #7a7a7a;
+    }
+  }
+
+  &__name {
+    font-size: 10px;
+    line-height: 12px;
+    /* identical to box height */
+
+    letter-spacing: 0.05em;
+
+    color: #cccccc;
+
+    margin-top: 65px;
+    text-align: center;
+
+    a {
+      color: #cccccc;
+      border-bottom: solid 2px #ccc;
+    }
+  }
+}

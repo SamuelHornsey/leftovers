@@ -23,11 +23,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LeOXQcfAAAAAMLK8e2jx0wTw6l1SLjxr9XXf9ko'),
-  isTokenAutoRefreshEnabled: true
-});
-
 export const functions = getFunctions(app);
 
 export const auth = getAuth(app);
@@ -39,6 +34,11 @@ if (process.env.NODE_ENV != 'production') {
   connectFunctionsEmulator(functions, 'localhost', 5001);
   connectAuthEmulator(auth, 'http://localhost:9099');
   connectFirestoreEmulator(db, 'localhost', 8081);
+} else {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6LeOXQcfAAAAAMLK8e2jx0wTw6l1SLjxr9XXf9ko'),
+    isTokenAutoRefreshEnabled: true
+  });
 }
 
 export const provider = new GoogleAuthProvider();
